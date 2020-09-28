@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./app/models")
 
 const app = express();
 
@@ -22,6 +23,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the application." });
+});
+
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
 });
 
 // set port, listen for requests
