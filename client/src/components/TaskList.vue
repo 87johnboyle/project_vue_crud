@@ -14,44 +14,44 @@
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Tutorials List</h4>
+      <h4>Task List</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
-          v-for="(tutorial, index) in tutorials"
+          v-for="(task, index) in tasks"
           :key="index"
-          @click="setActiveTutorial(tutorial, index)"
+          @click="setActiveTask(task, index)"
         >
-          {{ tutorial.title }}
+          {{ task.title }}
         </li>
       </ul>
 
-      <button class="m-3 btn btn-sm btn-danger" @click="removeAllTutorials">
+      <button class="m-3 btn btn-sm btn-danger" @click="removeAllTasks">
         Remove All
       </button>
     </div>
     <div class="col-md-6">
-      <div v-if="currentTutorial">
-        <h4>Tutorial</h4>
+      <div v-if="currentTask">
+        <h4>Task</h4>
         <div>
-          <label><strong>Title:</strong></label> {{ currentTutorial.title }}
+          <label><strong>Title:</strong></label> {{ currentTask.title }}
         </div>
         <div>
-          <label><strong>Description:</strong></label> {{ currentTutorial.description }}
+          <label><strong>Description:</strong></label> {{ currentTask.description }}
         </div>
         <div>
-          <label><strong>Status:</strong></label> {{ currentTutorial.published ? "Published" : "Pending" }}
+          <label><strong>Status:</strong></label> {{ currentTask.published ? "Completed" : "Incomplete" }}
         </div>
 
         <a class="badge badge-warning"
-          :href="'/tutorials/' + currentTutorial.id"
+          :href="'/tasks/' + currentTask.id"
         >
           Edit
         </a>
       </div>
       <div v-else>
         <br />
-        <p>Please click on a Tutorial...</p>
+        <p>Please click on a Task...</p>
       </div>
     </div>
   </div>
@@ -59,23 +59,23 @@
 
 <script>
 
-import TutorialDataService from "../services/TutorialDataService";
+import TaskDataService from "../services/TaskDataService";
 
 export default {
-  name: "tutorials-list",
+  name: "task-list",
   data() {
     return {
-      tutorials: [],
-      currentTutorial: null,
+      tasks: [],
+      currentTask: null,
       currentIndex: -1,
       title: ""
     };
   },
   methods: {
-    retrieveTutorials() {
-      TutorialDataService.getAll()
+    retrieveTasks() {
+      TaskDataService.getAll()
         .then(response => {
-          this.tutorials = response.data;
+          this.tasks = response.data;
           console.log(response.data);
         })
         .catch(error => {
@@ -84,18 +84,18 @@ export default {
     },
 
     refreshList() {
-      this.retrieveTutorials();
-      this.currentTutorial = null;
+      this.retrieveTasks();
+      this.currentTask = null;
       this.currentIndex = -1;
     },
 
-    setActiveTutorial(tutorial, index) {
-      this.currentTutorial = tutorial;
+    setActiveTask(task, index) {
+      this.currentTask = task;
       this.currentIndex = index;
     },
 
-    removeAllTutorials() {
-      TutorialDataService.deleteAll()
+    removeAllTasks() {
+      TaskDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -106,9 +106,9 @@ export default {
     },
 
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      TaskDataService.findByTitle(this.title)
         .then(response => {
-          this.tutorials = response.data;
+          this.tasks = response.data;
           console.log(response.data);
         })
         .catch(error => {
@@ -117,7 +117,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveTasks();
   }
 };
 </script>

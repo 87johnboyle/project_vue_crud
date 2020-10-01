@@ -8,7 +8,7 @@
           class="form-control"
           id="title"
           required
-          v-model="tutorial.title"
+          v-model="task.title"
           name="title"
         />
       </div>
@@ -19,29 +19,29 @@
           class="form-control"
           id="description"
           required
-          v-model="tutorial.description"
+          v-model="task.description"
           name="description"
         />
       </div>
 
-      <button @click="saveTutorial" class="btn btn-success">Submit</button>
+      <button @click="saveTask" class="btn btn-success">Submit</button>
     </div>
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newTutorial">Add</button>
+      <button class="btn btn-success" @click="newTask">Add</button>
     </div>
   </div>
 </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import TaskDataService from "../services/TaskDataService";
 
 export default {
-  name: "add-tutorial",
+  name: "add-task",
   data() {
     return {
-      tutorial: {
+      task: {
         id: null,
         title: "",
         description: "",
@@ -51,15 +51,15 @@ export default {
     };
   },
   methods: {
-    saveTutorial() {
+    saveTask() {
       let data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.task.title,
+        description: this.task.description
       };
 
-      TutorialDataService.create(data)
+      TaskDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          this.task.id = response.data.id;
           console.log(response.data);
           this.submitted = true;
         })
@@ -68,9 +68,9 @@ export default {
         });
     },
 
-    newTutorial() {
+    newTask() {
       this.submitted = false;
-      this.tutorial = {};
+      this.task = {};
     }
   }
 };

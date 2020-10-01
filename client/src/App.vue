@@ -4,7 +4,7 @@
       <a href="#" class="navbar-brand">JB Codes</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a href="/tutorials" class="nav-link">Tutorials</a>
+          <a href="/tasks" class="nav-link">Tasks</a>
         </li>
         <li class="nav-item">
           <a href="/add" class="nav-link">Add</a>
