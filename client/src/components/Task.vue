@@ -18,7 +18,7 @@
 
       <div class="form-group">
         <label><strong>Status:</strong></label>
-        {{ currentTask.published ? "Published" : "Pending" }}
+        {{ currentTask.published ? "Complete" : "Incomplete" }}
       </div>
     </form>
 
@@ -26,12 +26,12 @@
       v-if="currentTask.published"
       @click="updatePublished(false)"
     >
-      UnPublish
+      Incomplete
     </button>
     <button v-else class="badge badge-primary mr-2"
       @click="updatePublished(true)"
     >
-      Publish
+      Complete
     </button>
 
     <button class="badge badge-danger mr-2"
